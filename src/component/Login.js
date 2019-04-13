@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { doLogin } from "../firebase/firebase";
 import { setUser } from "../action";
-import st from "./home.css";
+import st from "../index.css";
 
 const INITIAL_STATE = {
   email: "",
@@ -14,12 +14,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = INITIAL_STATE;
-    this.stLogin = {
-      width: "300px",
-      height: "auto",
-      padding: "10px",
-      cursor: "default"
-    };
   }
 
   onSubmit = event => {
@@ -57,7 +51,7 @@ class Login extends React.Component {
     const isInvalid = password === "" || email === "";
     return (
       <form onSubmit={this.onSubmit} className={st.cards}>
-        <div style={this.stLogin}>
+        <div className={st.login}>
           <h2>Login</h2>
           <input
             name="email"

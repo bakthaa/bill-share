@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Header auth={this.props.isAuth} email={this.props.email} />
+        <Header auth={this.props.isAuth} />
         <main>
           {this.props.isAuth ? (
             <Switch>

@@ -2,13 +2,22 @@ import uuidv4 from "uuid/v4";
 // const uuidv4 = require("uuid/v4");
 import { initBillInfo } from "../component/NewBilling";
 const CELL_DELIMETER = "_";
-const FN_TOTAL = (pre, curr) => {
-  const nan = Number(curr.value);
-  return isNaN(nan) ? pre : pre + nan;
+
+const toNumber = val => {
+  const _num = Number(val);
+  return isNaN(_num) ? NaN : Number(_num.toFixed(2));
 };
+
+const TOTAL = arr =>
+  arr
+    .map(_cel => Number(_cel.value))
+    .filter(_raw => !isNaN(_raw))
+    .reduce((pre, curr) => pre + curr, 0);
+
 const EMPTY_ROW = (rowNum, value, disable) => [
   new Cell(rowNum, value, disable)
 ];
+
 class Cell {
   constructor(rowNum, value, disable) {
     if (isNaN(rowNum)) {
@@ -19,12 +28,11 @@ class Cell {
     this.disable = disable || false;
   }
   add(value) {
-    this.value += value;
+    this.value = Number(this.value) + Number(value);
     return this;
   }
 }
 
-// const _total = [new Cell(0, "Total")];
 class BillingTable {
   constructor() {
     this.reset();
@@ -99,7 +107,7 @@ class BillingTable {
       throw new Error("Invalid row index!");
     }
     this.items[_rowIdx] = this.items[_rowIdx].map(_cell =>
-      _cell.id === id ? new Cell(_rowIdx, value) : _cell
+      _cell.id === id ? new Cell(_rowIdx, toNumber(value)) : _cell
     );
     this.updateTotal();
   }
@@ -112,17 +120,18 @@ class BillingTable {
     for (let j = _stCidx; j < this.items[0].length; j++) {
       let _total = 0;
       for (let i = _stRidx; i < this.items.length; i++) {
-        const _cellVal = Number(this.items[i][j].value);
+        const _cellVal = toNumber(this.items[i][j].value);
         _total += _cellVal;
         // calculate v total
         this.hTotal[i] = this.hTotal[i]
           ? this.hTotal[i].add(_cellVal)
           : new Cell(i, _cellVal, true);
       }
-      this.total = [...this.total, new Cell(j, _total.toFixed(2))];
+      this.total = [...this.total, new Cell(j, toNumber(_total))];
     }
-    this.total[0].value = `V-Total(${this.total.reduce(FN_TOTAL, 0)})`;
-    this.hTotal[0].value = `H-Total(${this.hTotal.reduce(FN_TOTAL, 0)})`;
+    // console.log(this);
+    this.total[0].value = `V-Total(${TOTAL(this.total)})`;
+    this.hTotal[0].value = `H-Total(${TOTAL(this.hTotal)})`;
   }
 }
 export default BillingTable;

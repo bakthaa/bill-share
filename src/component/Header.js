@@ -7,15 +7,12 @@ const Header = props => {
     <header>
       <div className={st.container}>
         <h1>
-          <Link to="/">
-            VVS <span>{props.email ? props.email : null}</span>
-          </Link>
+          <Link to="/">VVS</Link>
         </h1>
         {props.auth ? (
           <nav>
             <Link to="/">Home</Link>
             <Link to="/manage">Manage</Link>
-            <a>Logout</a>
           </nav>
         ) : null}
       </div>

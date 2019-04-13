@@ -67,12 +67,13 @@ class ExpenseList extends React.Component {
           {this.props.types.map(_type => (
             <div className={`${st.item} ${st.w100} ${st.p5}`} key={_type}>
               <input
+                id={"eType" + _type}
                 type="checkbox"
-                name="pName"
+                name="eType"
                 value={_type}
                 onChange={this._onNameChkClick}
               />
-              <label>{_type}</label>
+              <label htmlFor={"eType" + _type}>{_type}</label>
             </div>
           ))}
         </div>

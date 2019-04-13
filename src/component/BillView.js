@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setBillings } from "../action";
-import st from "./home.css";
+import st from "../index.css";
 
 class BillView extends React.Component {
   constructor(props) {

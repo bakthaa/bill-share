@@ -8,7 +8,7 @@ import {
 } from "../firebase/firebase";
 import { setNames, setTypes, setBillings } from "../action";
 import Butil from "../model/Billings";
-import st from "./home.css";
+import st from "../index.css";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +53,10 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <h3 className={st.welcome}>
+          Welcome,
+          <span> {this.props.email ? this.props.email : null}</span>
+        </h3>
         <div className={st.cards + " " + st.NavLink}>
           {this.props.db.bill ? (
             Object.keys(this.props.db.bill).map(name => (
@@ -73,7 +77,8 @@ class Home extends Component {
 }
 const mapStateToProps = state => {
   return {
-    db: state.db
+    db: state.db,
+    email: state.auth.user
   };
 };
 const mapDispatchToProps = dispatch => {

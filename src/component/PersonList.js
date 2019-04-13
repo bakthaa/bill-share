@@ -68,12 +68,13 @@ class PersonList extends React.Component {
           {this.props.names.map(_name => (
             <div className={`${st.item} ${st.w100} ${st.p5}`} key={_name}>
               <input
+                id={"pName" + _name}
                 type="checkbox"
                 name="pName"
                 value={_name}
                 onClick={this._onNameChkClick}
               />
-              <label>{_name}</label>
+              <label htmlFor={"pName" + _name}>{_name}</label>
             </div>
           ))}
         </div>
