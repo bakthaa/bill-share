@@ -82,17 +82,20 @@ class Butil {
 
     // console.log(">>>>>>");
     for (let i = 0; i < bcs.length; i++) {
+      const stDate = new Date(bcs[i].stDate);
       const billPeriod = `${bcs[i].stDate} to ${bcs[i].endDate}`;
       for (let j = 0; j < bcs[i].persons.length; j++) {
         const { name, items, tot } = bcs[i].persons[j];
         // console.log(tot);
         const bc = {
+          stDate,
           period: billPeriod,
           items: items,
           total: tot
         };
         if (persons[name]) {
           persons[name].bcs.push(bc);
+          persons[name].bcs.sort((a, b) => (a.stDate > b.stDate ? 1 : -1));
           persons[name].gTotal = persons[name].gTotal + Number(bc.total);
         } else {
           // new

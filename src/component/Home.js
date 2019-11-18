@@ -33,9 +33,7 @@ class Home extends Component {
     getAllBillings()
       .then(querySnapshot => {
         // console.log(querySnapshot);
-        const _bills = querySnapshot.docs.map(doc => {
-          return doc.data();
-        });
+        const _bills = querySnapshot.docs.map(doc => doc.data());
         // console.log(_bills);
         // console.log(`${doc.id} => ${doc.data()}`);
         const bb = Butil.billCycleToPersons(_bills);

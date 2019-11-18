@@ -12,3 +12,8 @@ Monthly bill share app using ReactJs and firebase
 ### Deploy firebase
 
 - Run: firebase deploy
+
+### Troubleshooting
+
+- firebase login - for log into firebase CLI
+- firebase logout - for logout firebase CLI
